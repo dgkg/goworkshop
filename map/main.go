@@ -9,5 +9,5 @@ func main() {
 		m[string(letter)] = i
 		letter++
 	}
-	fmt.Println(m)
+	fmt.Println(string(m))
 }
