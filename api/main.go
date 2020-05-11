@@ -9,6 +9,7 @@ import (
 
 func main() {
 	now := time.Now()
+
 	u := User{
 		FirstName:   "Henri",
 		LastName:    "Lepic",
@@ -16,9 +17,11 @@ func main() {
 	}
 
 	r := gin.Default()
+
 	r.GET("/users", func(c *gin.Context) {
 		c.JSON(200, u)
 	})
+
 	r.POST("users", func(c *gin.Context) {
 		var u User
 		c.BindJSON(&u)
