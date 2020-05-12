@@ -14,4 +14,5 @@ func New(r *gin.Engine, db *db.DB) {
 	r.GET("/users", su.Get)
 	r.GET("/users/:uuid", su.GetByID)
 	r.POST("/users", su.Post)
+	r.DELETE("/users/:uuid", su.Delete)
 }

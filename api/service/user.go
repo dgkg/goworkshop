@@ -14,17 +14,31 @@ type ServiceUser struct {
 }
 
 func (s *ServiceUser) Get(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, s.DB.Users)
+	us, err := s.DB.GetAllUser()
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, err.Error())
+		return
+	}
+	ctx.JSON(http.StatusOK, us)
 }
 
 func (s *ServiceUser) GetByID(ctx *gin.Context) {
 	uuid := ctx.Param("uuid")
-	u, ok := s.DB.Users[uuid]
-	if !ok {
-		ctx.JSON(http.StatusNotFound, nil)
+	u, err := s.DB.GetByIDUser(uuid)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, err.Error())
 		return
 	}
 	ctx.JSON(http.StatusOK, u)
+}
+
+func (s *ServiceUser) Delete(ctx *gin.Context) {
+	uuid := ctx.Param("uuid")
+	if err := s.DB.DeleteUser(uuid); err != nil {
+		ctx.JSON(http.StatusNotFound, err.Error())
+		return
+	}
+	ctx.JSON(http.StatusOK, nil)
 }
 
 func (s *ServiceUser) Post(ctx *gin.Context) {
