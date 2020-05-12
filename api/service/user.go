@@ -1,24 +1,16 @@
-package main
+package service
 
 import (
 	"log"
 	"net/http"
 
+	"github.com/dgkg/goworkshop/api/db"
+	"github.com/dgkg/goworkshop/api/model"
 	"github.com/gin-gonic/gin"
 )
 
-// InitServices is initialize all routes.
-func InitServices(r *gin.Engine, db *DB) {
-	su := ServiceUser{
-		DB: db,
-	}
-	r.GET("/users", su.Get)
-	r.GET("/users/:uuid", su.GetByID)
-	r.POST("/users", su.Post)
-}
-
 type ServiceUser struct {
-	DB *DB
+	DB *db.DB
 }
 
 func (s *ServiceUser) Get(ctx *gin.Context) {
@@ -36,7 +28,7 @@ func (s *ServiceUser) GetByID(ctx *gin.Context) {
 }
 
 func (s *ServiceUser) Post(ctx *gin.Context) {
-	var u User
+	var u model.User
 	ctx.BindJSON(&u)
 	s.DB.AddUser(&u)
 	log.Println(u)
