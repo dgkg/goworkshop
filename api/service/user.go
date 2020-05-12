@@ -10,7 +10,7 @@ import (
 )
 
 type ServiceUser struct {
-	DB *db.DB
+	DB db.DB
 }
 
 func (s *ServiceUser) Get(ctx *gin.Context) {

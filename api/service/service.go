@@ -7,7 +7,7 @@ import (
 )
 
 // New is initialize all routes and db.
-func New(r *gin.Engine, db *db.DB) {
+func New(r *gin.Engine, db db.DB) {
 	su := ServiceUser{
 		DB: db,
 	}
