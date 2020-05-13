@@ -15,4 +15,12 @@ func New(r *gin.Engine, db db.DB) {
 	r.GET("/users/:uuid", su.GetByID)
 	r.POST("/users", su.Post)
 	r.DELETE("/users/:uuid", su.Delete)
+
+	sv := ServiceVote{
+		DB: db,
+	}
+	r.GET("/votes", sv.Get)
+	r.GET("/votes/:uuid", sv.GetByID)
+	r.POST("/votes", sv.Post)
+	r.DELETE("/votes/:uuid", sv.Delete)
 }
